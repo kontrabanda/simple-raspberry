@@ -1,10 +1,7 @@
 #!/usr/bin/python
 import time
+import configparser
 from http.server import BaseHTTPRequestHandler, HTTPServer
-
-HOST_NAME = 'localhost'
-PORT_NUMBER = 9000
-
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_HEAD(self):
@@ -44,11 +41,17 @@ class MyHandler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     server_class = HTTPServer
-    httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
-    print(time.asctime(), 'Server Starts - %s:%s' % (HOST_NAME, PORT_NUMBER))
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    host_name = config['DEFAULT']['HOST_NAME']
+    port_number = int(config['DEFAULT']['PORT_NUMBER'])
+    print(host_name + ' ' + str(port_number))
+
+    httpd = server_class((host_name, port_number), MyHandler)
+    print(time.asctime(), 'Server Starts - %s:%s' % (host_name, port_number))
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    print(time.asctime(), 'Server Stops - %s:%s' % (HOST_NAME, PORT_NUMBER))
+    print(time.asctime(), 'Server Stops - %s:%s' % (host_name, port_number))
