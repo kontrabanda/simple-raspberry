@@ -17,13 +17,11 @@ class MyHandler(BaseHTTPRequestHandler):
     def message_dispatcher(self):
         if self.path == '/light':
             light_test()
+            self.success_message('{ "msg":"Success"}')
         else:
             self.error_message()
 
     def success_message(self):
-        content = '''
-        { "name":"John", "age":30, "city":"New York"}
-        '''
         response = self.create_message(200, content)
         self.wfile.write(response)
 
