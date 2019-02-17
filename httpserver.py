@@ -2,6 +2,7 @@
 import time
 import configparser
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import threading
 from lightingled import light_test
 
 
@@ -16,7 +17,8 @@ class MyHandler(BaseHTTPRequestHandler):
 
     def message_dispatcher(self):
         if self.path == '/light':
-            light_test()
+            lighting_thread = threading.Thread(target=light_test)
+            lighting_thread.start()
             self.success_message('{ "msg":"Success"}')
         else:
             self.error_message()
