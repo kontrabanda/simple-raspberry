@@ -2,6 +2,8 @@
 import time
 import configparser
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from lightingled import light_test
+
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_HEAD(self):
@@ -10,15 +12,11 @@ class MyHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        paths = {
-            '/foo': {'status': 200},
-            '/bar': {'status': 302},
-            '/baz': {'status': 404},
-            '/qux': {'status': 500}
-        }
+        self.message_dispatcher()
 
-        if self.path in paths:
-            self.success_message()
+    def message_dispatcher():
+        if self.path == '/light':
+            light_test()
         else:
             self.error_message()
 
