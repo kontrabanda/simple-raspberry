@@ -21,7 +21,7 @@ class MyHandler(BaseHTTPRequestHandler):
         else:
             self.error_message()
 
-    def success_message(self):
+    def success_message(self, content):
         response = self.create_message(200, content)
         self.wfile.write(response)
 
