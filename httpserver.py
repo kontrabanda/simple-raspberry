@@ -14,7 +14,7 @@ class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.message_dispatcher()
 
-    def message_dispatcher():
+    def message_dispatcher(self):
         if self.path == '/light':
             light_test()
         else:
