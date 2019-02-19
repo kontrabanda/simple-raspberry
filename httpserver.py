@@ -4,6 +4,7 @@ import configparser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import threading
 from lightingled import light_test
+from simplelcd import  print_msg
 
 
 class MyHandler(BaseHTTPRequestHandler):
@@ -19,6 +20,9 @@ class MyHandler(BaseHTTPRequestHandler):
         if self.path == '/light':
             lighting_thread = threading.Thread(target=light_test)
             lighting_thread.start()
+            self.success_message('{ "msg":"Success"}')
+        else if self.path == '/lcd':
+            print_msg('Test! TEST! Test!')
             self.success_message('{ "msg":"Success"}')
         else:
             self.error_message()
