@@ -26,7 +26,7 @@ class MyHandler(BaseHTTPRequestHandler):
             lighting_thread.start()
             self.success_message('{ "msg":"Success"}')
         elif path == '/lcd':
-            print_msg(query_params['msg'])
+            print_msg(query_params['msg'][0])
             self.success_message('{ "msg":"Success"}')
         else:
             self.error_message()
