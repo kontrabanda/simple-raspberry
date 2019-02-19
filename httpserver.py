@@ -5,6 +5,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import threading
 from lightingled import light_test
 from simplelcd import  print_msg
+from urlparse import urlparse
 
 
 class MyHandler(BaseHTTPRequestHandler):
@@ -22,7 +23,7 @@ class MyHandler(BaseHTTPRequestHandler):
             lighting_thread.start()
             self.success_message('{ "msg":"Success"}')
         elif self.path == '/lcd':
-            print_msg('Test! TEST! Test!')
+            print_msg(get_query_params['msg'])
             self.success_message('{ "msg":"Success"}')
         else:
             self.error_message()
@@ -40,6 +41,9 @@ class MyHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'application/json')
         self.end_headers()
         return bytes(content, 'UTF-8')
+
+    def get_query_params(self):
+        return parse_qs(urlparse(self.path).query)
 
 if __name__ == '__main__':
     server_class = HTTPServer
