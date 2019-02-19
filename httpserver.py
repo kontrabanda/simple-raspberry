@@ -18,12 +18,15 @@ class MyHandler(BaseHTTPRequestHandler):
         self.message_dispatcher()
 
     def message_dispatcher(self):
-        if self.path == '/light':
+        path = urlparse(self.path).path
+        query_params = self.get_query_params();
+
+        if path == '/light':
             lighting_thread = threading.Thread(target=light_test)
             lighting_thread.start()
             self.success_message('{ "msg":"Success"}')
-        elif self.path == '/lcd':
-            print_msg(get_query_params['msg'])
+        elif path == '/lcd':
+            print_msg(query_params['msg'])
             self.success_message('{ "msg":"Success"}')
         else:
             self.error_message()
