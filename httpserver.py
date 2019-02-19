@@ -5,7 +5,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import threading
 from lightingled import light_test
 from simplelcd import  print_msg
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 
 class MyHandler(BaseHTTPRequestHandler):
