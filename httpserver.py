@@ -21,7 +21,7 @@ class MyHandler(BaseHTTPRequestHandler):
             lighting_thread = threading.Thread(target=light_test)
             lighting_thread.start()
             self.success_message('{ "msg":"Success"}')
-        else if self.path == '/lcd':
+        elif self.path == '/lcd':
             print_msg('Test! TEST! Test!')
             self.success_message('{ "msg":"Success"}')
         else:
